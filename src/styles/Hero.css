@@ -1,0 +1,36 @@
+.hero {
+  min-height: 420px; /* ✅ medium height */
+  padding: 40px 40px; /* pehle zyada hogi */
+  display: flex;
+  align-items: center;
+}
+
+.hero-text {
+  max-width: 60%;
+  padding-left: 50px;
+}
+
+.hero-text h1 span {
+  color: #ff9800;
+}
+
+.hero-img img {
+  max-height: 400px; /* hero ke barabar */
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-img img {
+    width: 250px;
+    margin-top: 20px;
+  }
+}

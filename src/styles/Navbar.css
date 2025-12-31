@@ -1,0 +1,68 @@
+/* Full width background */
+.navbar {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+/* Centered content */
+.navbar-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 24px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* Left */
+.nav-left {
+  flex: 1;
+}
+.logo {
+  color: #ff9800;
+  font-weight: 700;
+  margin-right: 20px;
+}
+
+/* Center menu */
+.nav-center {
+  display: flex;
+  gap: 26px;
+  list-style: none;
+  font-weight: 500;
+}
+
+/* Right buttons */
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn-outline {
+  border: 1px solid #ff9800;
+  background: transparent;
+  color: #ff9800;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-fill {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-center {
+    display: none;
+  }
+}
