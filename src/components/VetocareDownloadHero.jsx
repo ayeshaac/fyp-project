@@ -3,6 +3,7 @@ import "../styles/vetocare-hero.css";
 
 import googlePlayIcon from "../assets/google play.png";
 import googlePlayBadge from "../assets/app-store-badge..png";
+import appStoreIcon from "../assets/app-store.png";
 
 
 export default function VetocareDownloadHero() {
@@ -12,13 +13,12 @@ export default function VetocareDownloadHero() {
         {/* LEFT */}
         <div className="vc-hero__left">
           <h1 className="vc-hero__title">
-            Download the <span className="vc-hero__brand">Vetocare</span>
-            APP
+            Download the <span className="vc-hero__brand">Vetocare</span>  <span className="vc-hero-app">App</span>
+           
           </h1>
 
           <p className="vc-hero__subtitle">
-            Download Vetocare app today and avail exclusive veterinary care
-            discounts.
+            Download Vetocare app today and avail exclusive veterinary care discounts.
           </p>
 
           <div className="vc-hero__stores">
@@ -27,7 +27,7 @@ export default function VetocareDownloadHero() {
             </a>
 
             <a className="vc-store" href="#">
-              <img src={googlePlayBadge} alt="App Store" />
+              <img src={appStoreIcon} alt="App Store" />
             </a>
           </div>
         </div>

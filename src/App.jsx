@@ -8,6 +8,8 @@ import PartnerFormModal from "./components/PartnerFormModal";
 import NewsSection from "./components/NewsSection";
 import Testimonials from "./components/Testimonials";
 import VetocareDownloadHero from "./components/VetocareDownloadHero";
+import DoctorsGrid from "./components/DoctorsGrid";
+import Footer from "./components/Footer";
 
 function App() {
   const [openPartner, setOpenPartner] = useState(false);
@@ -29,6 +31,8 @@ function App() {
       <NewsSection />
       <Testimonials />
       <VetocareDownloadHero />
+      <DoctorsGrid />
+      <Footer />
     </>
   );
 }

@@ -21,26 +21,30 @@
   font-weight: 600;
   color: #111827;
   margin-bottom: 16px;
-  margin-left: 0px;
+  margin-left: 70px;
+  margin-top: -120px;
 }
 
 .vc-hero__brand {
   color: #ed990b;
 }
-
+.vc-hero-app {
+  margin-left: 180px;
+}
 .vc-hero__subtitle {
   font-size: 16px;
   line-height: 1.7;
   color: #374151;
   margin-bottom: 24px;
   max-width: 520px;
-  margin-left: 50px;
+  margin-left: 80px;
 }
 
 /* Store buttons */
 .vc-hero__stores {
   display: flex;
   gap: 14px;
+  margin-left: 150px;
 }
 
 .vc-store img {
