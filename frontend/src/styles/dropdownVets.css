@@ -1,0 +1,76 @@
+.dv-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.dv-trigger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 10px;
+}
+
+.dv-icon.up {
+  transform: rotate(180deg);
+}
+
+.dv-menu {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 320px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 10px 0;
+  z-index: 999;
+}
+
+.dv-heading {
+  font-weight: 700;
+  color: #0a2ea8;
+  padding: 10px 14px;
+}
+
+.dv-item {
+  border-top: 1px solid #f1f1f1;
+}
+
+.dv-item-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.dv-subicon.up {
+  transform: rotate(180deg);
+}
+
+.dv-submenu {
+  border-top: 1px solid #f1f1f1;
+}
+
+.dv-subitem {
+  width: 100%;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.dv-subitem:hover {
+  background: #f6f8ff;
+}

@@ -1,0 +1,49 @@
+.vets-page {
+  padding: 30px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.filters select,
+.filters input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.vet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.vet-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.vet-card:hover {
+  transform: translateY(-5px);
+}
+
+.vet-card h3 {
+  margin-bottom: 10px;
+  color: #0b7285;
+}
+
+.vet-card p {
+  margin: 6px 0;
+  font-size: 14px;
+}

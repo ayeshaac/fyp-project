@@ -1,0 +1,164 @@
+:root {
+  --gap: 28px;
+  --card: #fff;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #0b2a6f;
+  --bg: #f6f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: #111827;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.layout {
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+}
+
+.content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hero {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  min-height: auto;
+}
+
+.hero h1 {
+  margin: 0 0 6px 0;
+  font-size: 22px;
+}
+.hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.sidebar {
+  flex: 0 0 360px;
+  position: sticky;
+  top: 18px;
+}
+
+/* ===== Pic-style section (same as services grid look) ===== */
+.picSection {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 18px;
+}
+
+/* header */
+.picHeader {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.picHeader h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.picHeader p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+  max-width: 420px;
+  text-align: right;
+}
+
+/* grid */
+.picGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 28px;
+  padding: 10px 6px;
+}
+
+.picItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+/* icon circle */
+.picCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: #f2f4f8;
+  display: grid;
+  place-items: center;
+}
+
+.picIcon {
+  font-size: 22px;
+}
+
+/* label */
+.picLabel {
+  font-size: 12.5px;
+  max-width: 110px;
+  line-height: 1.25;
+  color: #111827;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1100px) {
+  .picGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .picHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .picHeader p {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .picGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: static;
+    width: 100%;
+    flex: 1 1 auto;
+  }
+}

@@ -1,0 +1,59 @@
+.vet-explore {
+  background-image: url("/blog/vet-bg.jpg"); /* vet related image */
+  background-size: cover;
+  background-position: center;
+  min-height: 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.vet-overlay {
+  background: #ff9800;
+  width: 100%;
+  padding: 40px;
+}
+
+.vet-content {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.vet-content h2 {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.vet-content h2 span {
+  font-weight: 400;
+}
+
+.vet-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.vet-tag {
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.vet-tag:hover {
+  background: #ffffff;
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .vet-content h2 {
+    font-size: 24px;
+  }
+}

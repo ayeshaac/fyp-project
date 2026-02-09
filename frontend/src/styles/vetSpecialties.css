@@ -1,0 +1,179 @@
+/* HEADER */
+.vet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vet-header h3 {
+  margin-left: 100px;
+}
+.view-all {
+  border: none;
+  background: none;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* HOME GRID → 2 ROWS × 5 */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.home-card {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ICON STYLE (SAME AS UI) */
+.icon-circle {
+  width: 72px;
+  height: 72px;
+  background: #eef4ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 26px;
+  color: #2563eb;
+}
+
+/* POPUP */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: #fff;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 12px;
+  padding: 20px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* POPUP GRID → 3 COLUMNS */
+.popup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.popup-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.popup-card p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.online {
+  margin-left: auto;
+  font-size: 11px;
+  color: green;
+  font-weight: 600;
+}
+/* SEARCH BOX */
+.search-box {
+  margin: 16px 0;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+/* POPUP GRID */
+.popup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 10px;
+}
+
+/* DOCTOR CARD (IMAGE JESA) */
+.doctor-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #f1f5f9;
+  background: #fff;
+}
+
+.doctor-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.doctor-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-name {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.online-badge {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #16a34a;
+  background: #dcfce7;
+  padding: 2px 8px;
+  border-radius: 6px;
+  width: fit-content;
+}
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .home-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .popup-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .popup-grid {
+    grid-template-columns: 1fr;
+  }
+}
