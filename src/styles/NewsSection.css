@@ -1,0 +1,62 @@
+.news-section {
+  max-width: 1200px;
+  margin: 10px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+}
+
+.news-heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+/* GRID LAYOUT */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* CARD DESIGN */
+.news-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.12);
+}
+
+.news-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+}
+
+.news-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 28px;
+}
+
+.news-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a5cff;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+}
