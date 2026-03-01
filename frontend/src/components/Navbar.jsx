@@ -83,7 +83,7 @@ export default function Navbar() {
               <button className="btn-fill" onClick={() => navigate("/join-vet")}>
                 Join as a Vet
               </button>
-              <button className="btn-fill" onClick={() => navigate("/user-register")}>
+              <button className="btn-fill" onClick={() => navigate("/join-user")}>
                 Join as User
               </button>
             </>

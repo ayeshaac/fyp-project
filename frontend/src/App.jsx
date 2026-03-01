@@ -12,6 +12,11 @@ import AdminVets from "./pages/Admin/AdminVets";
 import VetLogin from "./pages/Joinvet/VetLogin";
 import VetDashboard from "./pages/VetDashboard";
 
+// 🟢 NEW IMPORTS
+import JoinUserForm from "./pages/joinuser/JoinUserForm";
+import UserLogin from "./pages/joinuser/UserLogin";
+import UserDashboard from "./pages/joinuser/UserDashboard";
+
 function App() {
   return (
     <>
@@ -24,17 +29,28 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/surgery" element={<Surgery />} />
         <Route path="/join-vet" element={<JoinVet />} />
+        <Route path="/join-user" element={<JoinUserForm />} />
         <Route path="/admin/vets" element={<AdminVets />} />
 
         {/* Authentication */}
         <Route path="/vet-login" element={<VetLogin />} />
+        <Route path="/user-login" element={<UserLogin />} />
 
-        {/* Protected Route */}
+        {/* Protected Routes */}
         <Route
           path="/vet-dashboard"
           element={
             <ProtectedRoute>
               <VetDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user-dashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
             </ProtectedRoute>
           }
         />
