@@ -4,15 +4,104 @@ import { useEffect } from "react";
 import axios from "axios";
 const UserDashboard = () => {
 
+
   const [showModal, setShowModal] = useState(false);
   const [pets, setPets] = useState([]);
+  const [user, setUser] = useState(null);
   const [editingPet, setEditingPet] = useState(null);
+  const [showBooking, setShowBooking] = useState(false);
+  const [vets, setVets] = useState([]);
+const [appointments, setAppointments] = useState([]);
 
+const fetchAppointments = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(
+      "http://localhost:5000/api/appointments/my",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setAppointments(res.data);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const [appointmentData, setAppointmentData] = useState({
+  petId: "",
+  vetId: "",
+  date: "",
+  time: ""
+});
 const [formData, setFormData] = useState({
   name: "",
   type: "",
   breed: "",
+  age: "",
+  gender: "",
+  weight: "",
 });
+const fetchBookingData = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    // 🔹 GET PETS
+    const petsRes = await axios.get(
+      "http://localhost:5000/api/pets/my",
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+
+    // 🔹 GET VETS
+    const vetsRes = await axios.get(
+      "http://localhost:5000/api/vets"
+    );
+
+    // 🔥 IMPORTANT (MISSING PART)
+    setPets(petsRes.data);
+    setVets(vetsRes.data);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+const handleBookAppointment = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.post(
+      "http://localhost:5000/api/appointments",
+      appointmentData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Appointment booked successfully ✅");
+
+    setShowBooking(false);
+
+    setAppointmentData({
+      petId: "",
+      vetId: "",
+      date: "",
+      time: "",
+    });
+
+  } catch (err) {
+    console.log(err.response?.data || err.message);
+    alert(err.response?.data?.message || "Error booking appointment");
+  }
+};
 const handleChange = (e) => {
   setFormData({
     ...formData,
@@ -49,11 +138,7 @@ const handleAddPet = async () => {
     // ✅ sab yahan hona chahiye
     setShowModal(false);
 
-    setFormData({
-      name: "",
-      type: "",
-      breed: "",
-    });
+   
 setEditingPet(null);
     fetchPets(); // 🔥 IMPORTANT
 
@@ -80,11 +165,14 @@ const handleDelete = async (id) => {
   }
 };
 const handleEdit = (pet) => {
-  setFormData({
-    name: pet.name,
-    type: pet.type,
-    breed: pet.breed,
-  });
+ setFormData({
+  name: pet.name || "",
+  type: pet.type || "",
+  breed: pet.breed || "",
+  age: pet.age || "",
+  gender: pet.gender || "",
+  weight: pet.weight || "",
+});
 
   setEditingPet(pet); // 🔥 important
   setShowModal(true);
@@ -106,8 +194,27 @@ const fetchPets = async () => {
 alert(err.response?.data?.message || "Error");
   }
 };
+const fetchUser = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:5000/api/users/me",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    setUser(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
 useEffect(() => {
   fetchPets();
+  fetchUser();
+  fetchAppointments();
+
 }, []);
 
   // PET CARD COMPONENT
@@ -120,30 +227,37 @@ useEffect(() => {
 
       <h3>{pet.name}</h3>
       <p>{pet.type} | {pet.breed}</p>
-      <p>{pet.age}</p>
+<p>Age: {pet.age}</p>
+<p>Gender: {pet.gender}</p>
+<p>Weight: {pet.weight}</p>
 
-      <button onClick={() => handleDelete(pet._id)}>
-        Delete
-      </button>
-      <button
-  style={styles.outlineBtn}
-  onClick={() => handleEdit(pet)}
->
-  Edit
-</button>
+     <div style={styles.cardBtns}>
+  <button
+    style={styles.deleteBtn}
+    onClick={() => handleDelete(pet._id)}
+  >
+    Delete
+  </button>
+
+  <button
+    style={styles.editBtn}
+    onClick={() => handleEdit(pet)}
+  >
+    Edit
+  </button>
+</div>
     </div>
   );
 };
 
   // QUICK ACTION CARD
-  const ActionCard = ({ title, desc }) => (
-    <div style={styles.actionCard}>
-      <h4>{title}</h4>
-      <p style={styles.gray}>{desc}</p>
-      <span style={styles.open}>Open →</span>
-    </div>
-  );
-
+const ActionCard = ({ title, desc, onClick }) => (
+  <div style={styles.actionCard} onClick={onClick}>
+    <h4>{title}</h4>
+    <p style={styles.gray}>{desc}</p>
+    <span style={styles.open}>Open →</span>
+  </div>
+);
   return (
     <div style={styles.wrapper}>
 
@@ -155,27 +269,37 @@ useEffect(() => {
         {/* WELCOME CARD */}
         <div style={styles.card}>
           <div style={{ flex: 1 }}>
-            <h2>Welcome back, Zubair 👋</h2>
+           <h2>
+  Welcome back, {user?.name || "User"} 👋
+</h2>
             <p style={styles.gray}>
               Manage your pet’s health easily—book appointments, chat with vets.
             </p>
 
             <div style={{ marginTop: "15px" }}>
-              <button style={styles.primary}>Book Appointment</button>
+              <button
+  style={styles.primary}
+  onClick={() => {
+    setShowBooking(true);
+    fetchBookingData();
+  }}
+>
+  Book Appointment
+</button>
               <button style={styles.secondary}>Message Vet</button>
             </div>
           </div>
 
           <div style={styles.stats}>
             <div style={styles.statBox}>
-              <h2>2</h2>
+              <h2>{pets.length}</h2>
               <p>Pets</p>
             </div>
 
             <div style={styles.statBox}>
-              <h2>1</h2>
-              <p>Upcoming</p>
-            </div>
+  <h2>0</h2>
+  <p>Upcoming</p>
+</div>
           </div>
         </div>
 
@@ -189,7 +313,18 @@ useEffect(() => {
 
   <button
     style={styles.primary}
-    onClick={() => setShowModal(true)}
+    onClick={() => {
+  setEditingPet(null);
+  setFormData({
+    name: "",
+    type: "",
+    breed: "",
+    age: "",
+    gender: "",
+    weight: "",
+  });
+  setShowModal(true);
+}}
   >
     + Add New Pet
   </button>
@@ -206,19 +341,27 @@ useEffect(() => {
         {/* APPOINTMENT */}
         <h3 style={styles.title}>Upcoming Appointments</h3>
 
-        <div style={styles.card}>
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            style={styles.docImg}
-          />
+       {appointments.map((app) => (
+  <div key={app._id} style={styles.card}>
 
-          <div style={{ flex: 1 }}>
-            <h4>Dr. Ali Raza</h4>
-            <p style={styles.gray}>Veterinarian</p>
-          </div>
+    <img
+      src="https://randomuser.me/api/portraits/men/32.jpg"
+      style={styles.docImg}
+    />
 
-          <button style={styles.primary}>+ Book</button>
-        </div>
+    <div style={{ flex: 1 }}>
+      <h4>{app.vetId?.name || "Vet"}</h4>
+      <p style={styles.gray}>
+        {app.date} | {app.time}
+      </p>
+    </div>
+
+    <button style={styles.primary}>
+      {app.status}
+    </button>
+
+  </div>
+))}
 
       </div>
 
@@ -226,10 +369,14 @@ useEffect(() => {
       <div style={styles.right}>
         <h3>Quick Actions</h3>
 
-        <ActionCard
-          title="Book Appointment"
-          desc="Schedule consultation"
-        />
+      <ActionCard
+  title="Book Appointment"
+  desc="Schedule consultation"
+  onClick={() => {
+    setShowBooking(true);
+    fetchBookingData();
+  }}
+/>
 
         <ActionCard
           title="Message Vet"
@@ -252,27 +399,58 @@ useEffect(() => {
 
       <h2>{editingPet ? "Edit Pet" : "Add New Pet"}</h2>
 <input
+  style={styles.input}
   name="name"
-  placeholder="name"
+  placeholder="Pet Name"
   value={formData.name}
   onChange={handleChange}
 />
 
 <input
+  style={styles.input}
   name="type"
-  placeholder="type"
+  placeholder="Animal Type"
   value={formData.type}
   onChange={handleChange}
 />
 
 <input
+  style={styles.input}
   name="breed"
-  placeholder="breed"
+  placeholder="Breed"
   value={formData.breed}
   onChange={handleChange}
 />
 
-      <div style={{ marginTop: "10px" }}>
+<input
+  style={styles.input}
+  name="age"
+  placeholder="Age (years)"
+  value={formData.age}
+  onChange={handleChange}
+/>
+
+<input
+  style={styles.input}
+  name="gender"
+  placeholder="Gender"
+  value={formData.gender}
+  onChange={handleChange}
+/>
+
+<input
+  style={styles.input}
+  name="weight"
+  placeholder="Weight (kg)"
+  value={formData.weight}
+  onChange={handleChange}
+/>
+      <div style={{
+    marginTop: "15px",
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: "10px",
+  }}>
         <button
           style={styles.outlineBtn}
           onClick={() => setShowModal(false)}
@@ -287,6 +465,78 @@ useEffect(() => {
 
       </div>
 
+    </div>
+  </div>
+)}
+{showBooking && (
+  <div style={styles.modalOverlay}>
+    <div style={styles.modal}>
+      <h2>Book Appointment</h2>
+<select
+  value={appointmentData.petId}
+  onChange={(e) =>
+    setAppointmentData({
+      ...appointmentData,
+      petId: e.target.value
+    })
+  }
+>
+        <option>Select Pet</option>
+        {pets.map((pet) => (
+          <option key={pet._id} value={pet._id}>
+            {pet.name || "Pet"}
+          </option>
+        ))}
+      </select>
+
+      <select
+  value={appointmentData.vetId}
+  onChange={(e) =>
+    setAppointmentData({
+      ...appointmentData,
+      vetId: e.target.value
+    })
+  }
+>
+        <option>Select Vet</option>
+        {vets.map((vet) => (
+          <option key={vet._id} value={vet._id}>
+            {vet.name}
+          </option>
+        ))}
+      </select>
+
+    <input
+  type="date"
+  value={appointmentData.date}
+  onChange={(e) =>
+    setAppointmentData({
+      ...appointmentData,
+      date: e.target.value
+    })
+  }
+/>
+
+     <input
+  type="time"
+  value={appointmentData.time}
+  onChange={(e) =>
+    setAppointmentData({
+      ...appointmentData,
+      time: e.target.value
+    })
+  }
+/>
+
+      <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+        <button onClick={() => setShowBooking(false)}>
+          Cancel
+        </button>
+
+        <button onClick={handleBookAppointment}>
+          Confirm
+        </button>
+      </div>
     </div>
   </div>
 )}
@@ -313,6 +563,32 @@ cardColumn: {
 
   width: "400px",        // 🔥 width control
    
+},
+cardBtns: {
+  display: "flex",
+  justifyContent: "center",
+  gap: "10px",
+  marginTop: "10px",
+},
+
+editBtn: {
+  padding: "8px 14px",
+  borderRadius: "8px",
+  border: "none",
+  background: "#4CAF50",
+  color: "white",
+  cursor: "pointer",
+  fontSize: "13px",
+},
+
+deleteBtn: {
+  padding: "8px 14px",
+  borderRadius: "8px",
+  border: "none",
+  background: "#ff4d4f",
+  color: "white",
+  cursor: "pointer",
+  fontSize: "13px",
 },
 
 modalOverlay: {

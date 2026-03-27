@@ -38,7 +38,10 @@ export const deletePet = async (req, res) => {
   }
 };
 
-
+export const getUserProfile = async (req, res) => {
+  const user = await User.findById(req.user.id).select("-password");
+  res.json(user);
+};
 // ================= UPDATE PET =================
 export const updatePet = async (req, res) => {
   try {
