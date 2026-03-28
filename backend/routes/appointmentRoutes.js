@@ -3,6 +3,7 @@ import {
   createAppointment,
   getMyAppointments,
   getVetAppointments,
+  updateAppointmentStatus,
 } from "../controllers/appointmentController.js";
 
 import { verifyToken } from "../middleware/authMiddleware.js";
@@ -17,5 +18,7 @@ router.get("/my", verifyToken, getMyAppointments);
 
 // 👨‍⚕️ vet appointments
 router.get("/vet", verifyToken, getVetAppointments);
+// ✏️ update appointment status (vet)
+router.put("/:id", verifyToken, updateAppointmentStatus);
 
 export default router;

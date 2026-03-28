@@ -4,28 +4,44 @@ import axios from "axios";
 export default function VetDashboard() {
   const [vet, setVet] = useState(null);
   const [error, setError] = useState("");
+const [activeTab, setActiveTab] = useState("dashboard");  
+const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-    if (!token) {
-      setError("Please login first");
-      return;
-    }
+  if (!token) {
+    setError("Please login first");
+    return;
+  }
 
-    axios
-      .get("http://localhost:5000/api/vets/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setVet(res.data);
-      })
-      .catch(() => {
-        setError("Unauthorized. Please login again.");
-      });
-  }, []);
+  // 👉 Vet fetch
+  axios
+    .get("http://localhost:5000/api/vets/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setVet(res.data);
+    })
+    .catch(() => {
+      setError("Unauthorized. Please login again.");
+    });
+
+  // 👇 YAHAN ADD KARNA HAI (SECOND API CALL)
+  axios
+    .get("http://localhost:5000/api/appointments/vet", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setAppointments(res.data);
+    })
+    .catch((err) => console.log(err));
+
+}, []);
 
   if (error) return <h3 style={{ padding: 30 }}>{error}</h3>;
   if (!vet) return <h3 style={{ padding: 30 }}>Loading dashboard...</h3>;
@@ -34,40 +50,70 @@ export default function VetDashboard() {
     <div style={styles.container}>
       <div style={styles.sidebar}>
         <h2 style={{ marginBottom: 30 }}>VetCare</h2>
-        <p style={styles.menuItem}>Dashboard</p>
-        <p style={styles.menuItem}>Appointments</p>
-        <p style={styles.menuItem}>Patients</p>
-        <p style={styles.menuItem}>Profile</p>
+        <p style={styles.menuItem} onClick={() => setActiveTab("dashboard")}>
+  Dashboard
+</p>
+
+<p style={styles.menuItem} onClick={() => setActiveTab("appointments")}>
+  Appointments
+</p>
+
+<p style={styles.menuItem}>Patients</p>
+<p style={styles.menuItem}>Profile</p>
       </div>
+<div style={styles.main}>
 
-      <div style={styles.main}>
-        <h1>Welcome Dr. {vet.name}</h1>
+  {activeTab === "dashboard" && (
+    <>
+      <h1>Welcome Dr. {vet.name}</h1>
 
-        <div style={styles.cardRow}>
-          <div style={styles.card}>
-            <h4>Status</h4>
-            <h2>{vet.status}</h2>
-          </div>
-
-          <div style={styles.card}>
-            <h4>Experience</h4>
-            <h2>{vet.experience} Years</h2>
-          </div>
-
-          <div style={styles.card}>
-            <h4>City</h4>
-            <h2>{vet.city}</h2>
-          </div>
+      <div style={styles.cardRow}>
+        <div style={styles.card}>
+          <h4>Status</h4>
+          <h2>{vet.status}</h2>
         </div>
 
-        <div style={styles.profileCard}>
-          <h3>Profile Information</h3>
-          <p><strong>Email:</strong> {vet.email}</p>
-          <p><strong>Phone:</strong> {vet.phone}</p>
-          <p><strong>Specialization:</strong> {vet.specialization}</p>
-          <p><strong>Description:</strong> {vet.description || "N/A"}</p>
+        <div style={styles.card}>
+          <h4>Experience</h4>
+          <h2>{vet.experience} Years</h2>
+        </div>
+
+        <div style={styles.card}>
+          <h4>City</h4>
+          <h2>{vet.city}</h2>
         </div>
       </div>
+
+      <div style={styles.profileCard}>
+        <h3>Profile Information</h3>
+        <p><strong>Email:</strong> {vet.email}</p>
+        <p><strong>Phone:</strong> {vet.phone}</p>
+        <p><strong>Specialization:</strong> {vet.specialization}</p>
+        <p><strong>Description:</strong> {vet.description || "N/A"}</p>
+      </div>
+    </>
+  )}
+
+  {activeTab === "appointments" && (
+  <>
+    <h2>Appointments</h2>
+
+    {appointments.length === 0 ? (
+      <p>No appointments found</p>
+    ) : (
+      appointments.map((app) => (
+        <div key={app._id} style={styles.card}>
+          <h4>Pet: {app.petId?.name}</h4>
+          <p>Date: {app.date}</p>
+          <p>Time: {app.time}</p>
+          <p>Status: {app.status}</p>
+        </div>
+      ))
+    )}
+  </>
+)}
+
+</div>
     </div>
   );
 }
