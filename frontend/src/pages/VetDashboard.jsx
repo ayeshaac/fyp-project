@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import Appointments from "./appointments/Appointments";
 export default function VetDashboard() {
   const [vet, setVet] = useState(null);
   const [error, setError] = useState("");
@@ -94,24 +94,7 @@ const [appointments, setAppointments] = useState([]);
     </>
   )}
 
-  {activeTab === "appointments" && (
-  <>
-    <h2>Appointments</h2>
-
-    {appointments.length === 0 ? (
-      <p>No appointments found</p>
-    ) : (
-      appointments.map((app) => (
-        <div key={app._id} style={styles.card}>
-          <h4>Pet: {app.petId?.name}</h4>
-          <p>Date: {app.date}</p>
-          <p>Time: {app.time}</p>
-          <p>Status: {app.status}</p>
-        </div>
-      ))
-    )}
-  </>
-)}
+ {activeTab === "appointments" && <Appointments />}
 
 </div>
     </div>
