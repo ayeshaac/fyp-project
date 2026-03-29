@@ -6,7 +6,9 @@ export default function VetDashboard() {
   const [error, setError] = useState("");
 const [activeTab, setActiveTab] = useState("dashboard");  
 const [appointments, setAppointments] = useState([]);
-
+const pendingCount = appointments.filter(
+  (a) => a.status === "pending"
+).length;
   useEffect(() => {
   const token = localStorage.getItem("token");
 
@@ -56,6 +58,11 @@ const [appointments, setAppointments] = useState([]);
 
 <p style={styles.menuItem} onClick={() => setActiveTab("appointments")}>
   Appointments
+  {pendingCount > 0 && (
+    <span style={styles.badge}>
+      {pendingCount}
+    </span>
+  )}
 </p>
 
 <p style={styles.menuItem}>Patients</p>
@@ -94,7 +101,12 @@ const [appointments, setAppointments] = useState([]);
     </>
   )}
 
- {activeTab === "appointments" && <Appointments />}
+ {activeTab === "appointments" && (
+  <Appointments
+    appointments={appointments}
+    setAppointments={setAppointments}
+  />
+)}
 
 </div>
     </div>
@@ -119,6 +131,15 @@ const styles = {
     cursor: "pointer",
     opacity: 0.8,
   },
+badge: {
+  marginLeft: "10px",
+  background: "red",
+  color: "white",
+  borderRadius: "50%",
+  padding: "3px 7px",
+  fontSize: "11px",
+  fontWeight: "bold",
+},
   main: {
     flex: 1,
     padding: "40px",

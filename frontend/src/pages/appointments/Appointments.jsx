@@ -1,18 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
-export default function Appointments() {
-  const [appointments, setAppointments] = useState([]);
+export default function Appointments({ appointments, setAppointments }) {
+ 
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    axios.get("http://localhost:5000/api/appointments/vet", {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(res => setAppointments(res.data))
-    .catch(err => console.log(err));
-  }, []);
   const updateStatus = async (id, status) => {
   const token = localStorage.getItem("token");
 
@@ -241,7 +232,10 @@ export default function Appointments() {
   <p>{app.date}</p>
 </div>
         </div>
-
+{/* 🔥 CHAT BUTTON YAHAN */}
+<button style={styles.chatBtn}>
+  Chat 💬
+</button>
       </div>
   ))
 )}
@@ -400,7 +394,16 @@ btnRow: {
   display: "flex",
   gap: "10px",
 },
-
+chatBtn: {
+  marginTop: "10px",
+  width: "100%",
+  padding: "8px",
+  background: "#3b82f6",
+  color: "white",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+},
 approveBtn: {
   flex: 1,
   padding: "8px",

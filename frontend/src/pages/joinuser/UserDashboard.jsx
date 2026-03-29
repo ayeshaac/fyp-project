@@ -359,7 +359,11 @@ const ActionCard = ({ title, desc, onClick }) => (
     <button style={styles.primary}>
       {app.status}
     </button>
-
+{app.status === "approved" && (
+  <button style={styles.chatBtn}>
+    Chat 💬
+  </button>
+)}
   </div>
 ))}
 
@@ -687,6 +691,15 @@ modal: {
     background: "white",
     cursor: "pointer",
   },
+  chatBtn: {
+  marginTop: "10px",
+  background: "#3b82f6",
+  color: "white",
+  border: "none",
+  padding: "8px 12px",
+  borderRadius: "8px",
+  cursor: "pointer",
+},
 
   stats: {
     display: "flex",
