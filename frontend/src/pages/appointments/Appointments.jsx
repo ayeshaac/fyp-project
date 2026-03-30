@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Appointments({ appointments, setAppointments }) {
- 
+ const navigate = useNavigate();
 
   const updateStatus = async (id, status) => {
   const token = localStorage.getItem("token");
@@ -233,7 +234,10 @@ export default function Appointments({ appointments, setAppointments }) {
 </div>
         </div>
 {/* 🔥 CHAT BUTTON YAHAN */}
-<button style={styles.chatBtn}>
+<button
+  style={styles.chatBtn}
+  onClick={() => navigate(`/chat/${app._id}`)}
+>
   Chat 💬
 </button>
       </div>

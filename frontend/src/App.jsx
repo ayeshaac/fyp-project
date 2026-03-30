@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import ChatPage from "./pages/chat/ChatPage";
 // Pages
 import Home from "./pages/Home";
 import Vets from "./pages/Vets/Vets";
@@ -31,7 +31,7 @@ function App() {
         <Route path="/join-vet" element={<JoinVet />} />
         <Route path="/join-user" element={<JoinUserForm />} />
         <Route path="/admin/vets" element={<AdminVets />} />
-
+        <Route path="/chat/:appointmentId" element={<ChatPage />} />
         {/* Authentication */}
         <Route path="/vet-login" element={<VetLogin />} />
         <Route path="/user-login" element={<UserLogin />} />

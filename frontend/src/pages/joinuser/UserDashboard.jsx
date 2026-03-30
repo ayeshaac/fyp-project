@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const UserDashboard = () => {
 
 
@@ -12,6 +13,7 @@ const UserDashboard = () => {
   const [showBooking, setShowBooking] = useState(false);
   const [vets, setVets] = useState([]);
 const [appointments, setAppointments] = useState([]);
+const navigate = useNavigate();
 
 const fetchAppointments = async () => {
   try {
@@ -360,9 +362,14 @@ const ActionCard = ({ title, desc, onClick }) => (
       {app.status}
     </button>
 {app.status === "approved" && (
-  <button style={styles.chatBtn}>
+
+  <button
+    style={styles.chatBtn}
+    onClick={() => navigate(`/chat/${app._id}`)}
+  >
     Chat 💬
   </button>
+
 )}
   </div>
 ))}
