@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Appointments from "./appointments/Appointments";
+import { useNavigate } from "react-router-dom";
+
 export default function VetDashboard() {
+  const navigate = useNavigate();
   const [vet, setVet] = useState(null);
+
   const [error, setError] = useState("");
 const [activeTab, setActiveTab] = useState("dashboard");  
 const [appointments, setAppointments] = useState([]);
@@ -67,6 +71,14 @@ const pendingCount = appointments.filter(
 
 <p style={styles.menuItem}>Patients</p>
 <p style={styles.menuItem}>Profile</p>
+<div
+  style={styles.menuItemWrapper}
+  onClick={() => navigate("/chats")}
+>
+  <p style={styles.menuItem}>Chats</p>
+
+  <span style={styles.badge}>2</span>
+</div>
       </div>
 <div style={styles.main}>
 

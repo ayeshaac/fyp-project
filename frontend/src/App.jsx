@@ -16,6 +16,7 @@ import VetDashboard from "./pages/VetDashboard";
 import JoinUserForm from "./pages/joinuser/JoinUserForm";
 import UserLogin from "./pages/joinuser/UserLogin";
 import UserDashboard from "./pages/joinuser/UserDashboard";
+import ChatUi from "./pages/chat/ChatUi";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/join-user" element={<JoinUserForm />} />
         <Route path="/admin/vets" element={<AdminVets />} />
         <Route path="/chat/:appointmentId" element={<ChatPage />} />
+        <Route path="/chats" element={<ChatUi />} />
         {/* Authentication */}
         <Route path="/vet-login" element={<VetLogin />} />
         <Route path="/user-login" element={<UserLogin />} />
