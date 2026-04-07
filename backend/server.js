@@ -27,6 +27,7 @@ app.use("/api/pets", petRoutes); // ✅ ADD THIS
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/messages", messageRoutes);
 
+
 const port = process.env.PORT || 5000;
 app.listen(port, () =>
   console.log(`Server running on port ${port}`)
